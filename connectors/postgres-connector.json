@@ -9,6 +9,7 @@
     "database.dbname": "vendas",
     "topic.prefix": "vendas_db",
     "table.include.list": "public.customers,public.products,public.orders",
-    "plugin.name": "pgoutput"
+    "plugin.name": "pgoutput",
+    "decimal.handling.mode": "string"
   }
 }
