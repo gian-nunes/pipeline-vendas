@@ -1,0 +1,14 @@
+{
+  "name": "postgres-vendas-connector",
+  "config": {
+    "connector.class": "io.debezium.connector.postgresql.PostgresConnector",
+    "database.hostname": "postgres_vendas",
+    "database.port": "5432",
+    "database.user": "admin",
+    "database.password": "admin123",
+    "database.dbname": "vendas",
+    "topic.prefix": "vendas_db",
+    "table.include.list": "public.customers,public.products,public.orders",
+    "plugin.name": "pgoutput"
+  }
+}

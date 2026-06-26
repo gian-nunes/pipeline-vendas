@@ -8,6 +8,7 @@ services:
       - .env
     ports:
       - "5432:5432"
+    command: ["postgres", "-c", "wal_level=logical"]
     volumes:
       - ./sql/init.sql:/docker-entrypoint-initdb.d/init.sql
       - postgres_data:/var/lib/postgresql/data
@@ -55,6 +56,21 @@ services:
       KAFKA_BROKERCONNECT: kafka_vendas:29092
     depends_on:
       - kafka
+
+  kafka-connect:
+    image: debezium/connect:2.4
+    container_name: kafka_connect_vendas
+    depends_on:
+      - kafka
+      - postgres
+    ports:
+      - "8083:8083"
+    environment:
+      BOOTSTRAP_SERVERS: kafka_vendas:29092
+      GROUP_ID: debezium-connect
+      CONFIG_STORAGE_TOPIC: debezium_configs
+      OFFSET_STORAGE_TOPIC: debezium_offsets
+      STATUS_STORAGE_TOPIC: debezium_status
 
 volumes:
   postgres_data:
